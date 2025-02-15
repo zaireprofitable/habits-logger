@@ -18,6 +18,8 @@
 // Can filter tasks by date
 // Proper error handling displayed to user
 
+// This is like an empty box ready to hold many sticky notes
+let tasks = [];  
 
 // This is like writing in the notebook
 localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -27,9 +29,6 @@ const savedTasks = localStorage.getItem("tasks");
 if (savedTasks) {
     tasks = JSON.parse(savedTasks);
 };
-
-// This is like an empty box ready to hold many sticky notes
-const tasks = [];  
 
 const submitButton = document.getElementById("taskSubmit");
 submitButton.addEventListener("click", () => {
