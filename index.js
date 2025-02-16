@@ -21,18 +21,16 @@
 // This is like an empty box ready to hold many sticky notes
 let tasks = [];  
 
-// This is like writing in the notebook
-localStorage.setItem("tasks", JSON.stringify(tasks));
-
 // This is like reading from the notebook
 const savedTasks = localStorage.getItem("tasks");
 if (savedTasks) {
     tasks = JSON.parse(savedTasks);
 };
 
+
+
 const submitButton = document.getElementById("taskSubmit");
 submitButton.addEventListener("click", () => {
-
     // Create a new task when the button is clicked
     const newTask = {
         id: generateId(),
@@ -44,6 +42,9 @@ submitButton.addEventListener("click", () => {
 
     // Add the new task to the tasks array
     tasks.push(newTask);
+
+    // Copy what's on your paper into your magical notebook! 
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 
     // Clear the input fields
     document.getElementById("taskInput").value = "";
@@ -58,8 +59,18 @@ const generateId = () => {
     return Date.now().toString() + Math.random().toString(36).substr(2, 9);
 };
 
+const displayTasks = () => {
+    const taskList = document.getElementById("taskList");
+    taskList.innerHTML = ''; // Clear the current list
 
-
-
-
-
+    // Loop through each task in our tasks array
+    tasks.forEach(task => {
+        taskList.innerHTML += `
+            <div class="task">
+                <p>Task: ${task.title}</p>
+                <p>Description: ${task.description}</p>
+                <p>Created At: ${task.createdAt}</p>
+            </div>
+        `;
+    });
+}
